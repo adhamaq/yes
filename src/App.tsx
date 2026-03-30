@@ -5,7 +5,8 @@ import {
 } from 'lucide-react';
 
 // --- ספקיות הטלוויזיה, נתונים מורחבים ומדויקים ---
-const PROVIDERS = {
+// הוספנו Record<string, any> כדי למנוע שגיאות TypeScript ב-Vercel
+const PROVIDERS: Record<string, any> = {
   sting: {
     id: 'sting', name: 'STING+', link: 'https://www.stingplus.co.il',
     theme: 'bg-emerald-500 text-white', lightTheme: 'bg-emerald-50 text-emerald-900 border-emerald-200',
@@ -74,7 +75,7 @@ const PROVIDERS = {
   }
 };
 
-const COMPARISON_FEATURES = [
+const COMPARISON_FEATURES: any[] = [
   { key: 'price', noteKey: 'priceNote', label: 'מחיר TV בלבד', isHighlight: true },
   { key: 'bundlePrice', noteKey: 'bundleNote', label: 'מחיר באנדל אינטרנט', isHighlight: true, isBundle: true },
   { key: 'router', label: 'עלות נתב (ראוטר) חודשית' },
@@ -89,7 +90,7 @@ const COMPARISON_FEATURES = [
   { key: 'installHome', label: 'עלות התקנה (בית פרטי / עד 4 דירות)' }
 ];
 
-const DETAILED_CHANNELS = [
+const DETAILED_CHANNELS: any[] = [
   {
     category: 'ערוצי ברודקאסט וכללי',
     icon: Tv,
@@ -242,14 +243,14 @@ const DETAILED_CHANNELS = [
 ];
 
 export default function App() {
-  const [competitorId, setCompetitorId] = useState('hot');
-  const [viewMode, setViewMode] = useState('single'); 
-  const [lastUpdated, setLastUpdated] = useState('');
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [competitorId, setCompetitorId] = useState<string>('hot');
+  const [viewMode, setViewMode] = useState<string>('single'); 
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   
-  const [expandedCategories, setExpandedCategories] = useState(
-    DETAILED_CHANNELS.map(c => c.category) 
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(
+    DETAILED_CHANNELS.map((c: any) => c.category) 
   );
 
   useEffect(() => {
@@ -268,7 +269,7 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [competitorId]);
 
-  const toggleCategory = (catName) => {
+  const toggleCategory = (catName: string) => {
     if (expandedCategories.includes(catName)) {
       setExpandedCategories(expandedCategories.filter(c => c !== catName));
     } else {
@@ -281,7 +282,7 @@ export default function App() {
   const comp = PROVIDERS[competitorId];
   const allProvidersList = ['hot', 'cellcom', 'partner', 'freetv'];
 
-  const openLink = (url) => {
+  const openLink = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -289,14 +290,14 @@ export default function App() {
     const query = searchQuery.trim();
     if (!query) return { isSearching: false, searchResults: [] };
 
-    const normalize = (str) => str.toLowerCase().replace(/[\s\-׳'"`]/g, '');
+    const normalize = (str: string) => str.toLowerCase().replace(/[\s\-׳'"`]/g, '');
     const normalizedQuery = normalize(query);
-    const results = [];
+    const results: any[] = [];
 
-    DETAILED_CHANNELS.forEach(cat => {
-      cat.channels.forEach(c => {
+    DETAILED_CHANNELS.forEach((cat: any) => {
+      cat.channels.forEach((c: any) => {
         const matchesName = normalize(c.name).includes(normalizedQuery);
-        const matchesKeyword = c.keywords && c.keywords.some(k => normalize(k).includes(normalizedQuery));
+        const matchesKeyword = c.keywords && c.keywords.some((k: string) => normalize(k).includes(normalizedQuery));
         
         if (matchesName || matchesKeyword) {
           results.push({ ...c, categoryName: cat.category });
@@ -307,7 +308,7 @@ export default function App() {
     return { isSearching: true, searchResults: results };
   }, [searchQuery]);
 
-  const renderIcon = (val) => {
+  const renderIcon = (val: any) => {
     return val ? (
       <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 mx-auto" />
     ) : (
@@ -410,14 +411,14 @@ export default function App() {
 
                 {/* Rows */}
                 <div className="divide-y divide-slate-100">
-                  {COMPARISON_FEATURES.map((row, idx) => (
+                  {COMPARISON_FEATURES.map((row: any, idx: number) => (
                     <div key={idx} className={`grid hover:bg-slate-50 transition-colors ${viewMode === 'single' ? 'grid-cols-4' : 'grid-cols-7'} ${row.isBundle ? 'bg-slate-50/50' : ''}`}>
                       <div className="p-4 flex items-center font-bold text-slate-700 border-l border-slate-100 text-[11px] sm:text-sm">
                         {row.isBundle && <Wifi className="w-4 h-4 text-indigo-500 ml-2 inline flex-shrink-0" />}
                         <span>{row.label}</span>
                       </div>
                       
-                      {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map(p => (
+                      {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map((p: any) => (
                         <div key={`${row.key}-${p.id}`} className={`p-4 flex items-center justify-center border-l border-slate-100 ${row.isHighlight ? p.lightTheme.split(' ')[0] + '/30' : ''}`}>
                           {row.isHighlight ? (
                             <div className="text-center w-full">
@@ -474,7 +475,7 @@ export default function App() {
                 <div className={`grid bg-slate-100 border-b-2 border-slate-300 sticky top-0 z-30 ${viewMode === 'single' ? 'grid-cols-4' : 'grid-cols-7'}`}>
                   <div className="p-2 sm:p-4 font-bold text-slate-500 border-l border-slate-200 flex items-center justify-center text-[11px] sm:text-base text-center">שם הערוץ</div>
                   
-                  {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map(p => (
+                  {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map((p: any) => (
                     <div key={`header-${p.id}`} className={`p-2 sm:p-4 text-center font-black ${p.lightTheme.split(' ')[1]} border-l border-slate-200 text-sm sm:text-xl leading-tight flex items-center justify-center`}>
                       {p.name}
                     </div>
@@ -490,14 +491,14 @@ export default function App() {
 
                     {searchResults.length > 0 && (
                       <div className="divide-y divide-slate-100">
-                        {searchResults.map((channel, idx) => (
+                        {searchResults.map((channel: any, idx: number) => (
                           <div key={`search-res-${idx}`} className={`grid hover:bg-slate-50 transition-colors ${viewMode === 'single' ? 'grid-cols-4' : 'grid-cols-7'}`}>
                             <div className="p-2 sm:p-4 border-l border-slate-100 flex flex-col justify-center text-center sm:text-right">
                               <span className="font-bold text-slate-800 text-[11px] sm:text-base leading-tight">{channel.name}</span>
                               <span className="text-[9px] sm:text-xs text-slate-500 mt-1 font-medium">{channel.categoryName}</span>
                             </div>
                             
-                            {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map(p => (
+                            {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map((p: any) => (
                                <div key={`search-icon-${p.id}`} className={`p-2 sm:p-4 border-l border-slate-100 flex items-center justify-center ${p.id === 'sting' ? 'bg-emerald-50/10' : p.id === 'yes' ? 'bg-blue-50/10' : ''}`}>
                                   {renderIcon(channel[p.id])}
                                </div>
@@ -511,7 +512,7 @@ export default function App() {
                 ) : (
                   
                   <div className="divide-y-4 divide-slate-100/50">
-                    {DETAILED_CHANNELS.map((category, catIdx) => {
+                    {DETAILED_CHANNELS.map((category: any, catIdx: number) => {
                       const isExpanded = expandedCategories.includes(category.category);
                       const CatIcon = category.icon;
                       
@@ -533,13 +534,13 @@ export default function App() {
 
                           {isExpanded && (
                             <div className="divide-y divide-slate-100">
-                              {category.channels.map((channel, chIdx) => (
+                              {category.channels.map((channel: any, chIdx: number) => (
                                 <div key={`cat-res-${chIdx}`} className={`grid hover:bg-slate-50 transition-colors ${viewMode === 'single' ? 'grid-cols-4' : 'grid-cols-7'}`}>
                                   <div className="p-2 sm:p-4 border-l border-slate-100 flex items-center justify-center sm:justify-start font-bold text-slate-700 text-[11px] sm:text-base leading-tight text-center sm:text-right">
                                     {channel.name}
                                   </div>
                                   
-                                  {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map(p => (
+                                  {[sting, yes, ...(viewMode === 'single' ? [comp] : allProvidersList.map(k => PROVIDERS[k]))].map((p: any) => (
                                     <div key={`cat-icon-${p.id}`} className={`p-2 sm:p-4 border-l border-slate-100 flex items-center justify-center ${p.id === 'sting' ? 'bg-emerald-50/10' : p.id === 'yes' ? 'bg-blue-50/10' : ''}`}>
                                         {renderIcon(channel[p.id])}
                                     </div>
