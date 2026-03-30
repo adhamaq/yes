@@ -1,7 +1,8 @@
 // @ts-nocheck
-/* הקוד עודכן כדי לפתור שגיאות Build ב-Vercel:
-  1. הוסרו ייבואים שאינם בשימוש (useEffect, useMemo, Wifi, ArrowRight, ExternalLink, Layout).
-  2. נוספו טיפוסים מפורשים לפונקציות ו-State כדי למנוע שגיאות "any" ו-"not assignable".
+/* FIXED VERSION FOR VERCEL BUILD:
+  - Removed unused imports (useEffect, useMemo, Wifi, etc.)
+  - Added explicit types for useState and function parameters
+  - Fixed colSpan to be a number
 */
 
 import React, { useState } from 'react';
@@ -75,11 +76,11 @@ export default function App() {
   const [display, setDisplay] = useState('0');
   const [equation, setEquation] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  // תיקון שגיאת TS2345: הגדרת State שיכול לקבל מספר או null
-  const [openObjection, setOpenObjection] = useState(null);
+  // Explicitly typing the state to fix TS2345
+  const [openObjection, setOpenObjection] = useState<number | null>(null);
 
-  // תיקון שגיאת TS7006: הגדרת טיפוס string לפרמטר val
-  const handleCalcInput = (val) => {
+  // Adding explicit string type to fix TS7006
+  const handleCalcInput = (val: string) => {
     if (val === 'C') { setDisplay('0'); setEquation(''); return; }
     if (val === '=') {
       try {
@@ -111,7 +112,7 @@ export default function App() {
               <Zap className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-slate-900 leading-none">Comparison+</h1>
+              <h1 className="text-xl font-bold tracking-tight text-slate-900 leading-none text-right">Comparison+</h1>
               <p className="text-[11px] font-semibold text-slate-500 mt-1 uppercase tracking-widest text-right">Internal Sales Suite</p>
             </div>
           </div>
@@ -160,13 +161,13 @@ export default function App() {
                   <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-100">
                     <Wallet className="w-4 h-4 text-blue-600" />
                   </div>
-                  <h2 className="text-lg font-bold text-slate-800">חבילות בסיס וסיבים</h2>
+                  <h2 className="text-lg font-bold text-slate-800 text-right">חבילות בסיס וסיבים</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {PRICES.base.map((p) => (
                     <div key={p.id} className="group bg-white p-5 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300">
                       <div className="flex justify-between items-start mb-4">
-                        <div>
+                        <div className="text-right">
                           <div className={`text-xs font-bold px-2 py-0.5 rounded-full mb-2 inline-block ${p.color === 'emerald' ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-blue-600'}`}>
                             {p.color === 'emerald' ? 'STING+' : 'yes+'}
                           </div>
@@ -192,8 +193,8 @@ export default function App() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <section className="bg-white p-6 rounded-[2.5rem] border border-slate-200 shadow-sm">
-                  <h3 className="text-sm font-bold text-slate-400 mb-4 flex items-center gap-2">
-                    <MonitorPlay className="w-4 h-4" /> סטרימינג ו-VOD
+                  <h3 className="text-sm font-bold text-slate-400 mb-4 flex items-center justify-end gap-2 text-right">
+                     סטרימינג ו-VOD <MonitorPlay className="w-4 h-4" />
                   </h3>
                   <div className="space-y-3">
                     {PRICES.streaming.map((s, i) => (
@@ -210,8 +211,8 @@ export default function App() {
                   </div>
                 </section>
                 <section className="bg-white p-6 rounded-[2.5rem] border border-slate-200 shadow-sm">
-                  <h3 className="text-sm font-bold text-slate-400 mb-4 flex items-center gap-2">
-                    <Trophy className="w-4 h-4" /> ערוצי פרימיום
+                  <h3 className="text-sm font-bold text-slate-400 mb-4 flex items-center justify-end gap-2 text-right">
+                    ערוצי פרימיום <Trophy className="w-4 h-4" />
                   </h3>
                   <div className="space-y-3">
                     {PRICES.premium.map((p, i) => (
@@ -232,9 +233,9 @@ export default function App() {
 
             <div className="lg:col-span-4">
               <div className="bg-slate-900 p-6 rounded-[2.5rem] shadow-2xl sticky top-28 border border-slate-800">
-                <div className="flex items-center gap-3 mb-6">
-                  <Calculator className="w-5 h-5 text-blue-400" />
+                <div className="flex items-center gap-3 mb-6 justify-end">
                   <span className="font-bold text-slate-100">מחשבון עזר מהיר</span>
+                  <Calculator className="w-5 h-5 text-blue-400" />
                 </div>
                 <div className="bg-black/40 p-6 rounded-3xl mb-6 text-right font-mono border border-white/5">
                   <div className="text-[10px] text-slate-500 h-4 mb-1 italic overflow-hidden">{equation || 'הקלד לחישוב...'}</div>
@@ -285,9 +286,9 @@ export default function App() {
                       <React.Fragment key={cat.category}>
                         <tr className="bg-slate-50/30">
                           <td colSpan={6} className="px-6 py-3">
-                            <div className="flex items-center gap-2">
-                              <cat.icon className="w-3.5 h-3.5 text-slate-400" />
+                            <div className="flex items-center justify-end gap-2 text-right">
                               <span className="text-[11px] font-black text-slate-500 uppercase">{cat.category}</span>
+                              <cat.icon className="w-3.5 h-3.5 text-slate-400" />
                             </div>
                           </td>
                         </tr>
@@ -313,11 +314,11 @@ export default function App() {
         {/* TAB: Comparison */}
         {activeTab === 'comparison' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-3 mb-2 justify-end">
+              <h2 className="text-lg font-bold text-slate-800 text-right">השוואת חברות בשוק</h2>
               <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-100">
                 <BarChart3 className="w-4 h-4 text-blue-600" />
               </div>
-              <h2 className="text-lg font-bold text-slate-800 text-right">השוואת חברות בשוק</h2>
             </div>
             <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
@@ -347,9 +348,9 @@ export default function App() {
                 </table>
               </div>
             </div>
-            <div className="bg-blue-50 p-6 rounded-[2rem] border border-blue-100 flex gap-4 items-start">
+            <div className="bg-blue-50 p-6 rounded-[2rem] border border-blue-100 flex gap-4 items-start flex-row-reverse">
               <Info className="w-5 h-5 text-blue-600 mt-1" />
-              <div>
+              <div className="text-right">
                 <h4 className="font-bold text-blue-900 text-sm mb-1 text-right">שימו לב ליתרון הממירים:</h4>
                 <p className="text-xs font-bold text-blue-700 leading-relaxed text-right">
                   בזמן שמתחרות גובות תשלום חודשי על כל ממיר נוסף (בין 25 ל-30 ש"ח), ב-yes וסטינג הממירים כלולים ללא הגבלה במחיר החבילה.
@@ -376,8 +377,8 @@ export default function App() {
                 <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 self-end">
                   <ShieldCheck className="w-7 h-7 text-emerald-600" />
                 </div>
-                <h3 className="text-xl font-black text-slate-800 mb-3">ביטחון בשיחת המכירה</h3>
-                <p className="text-slate-500 font-bold leading-relaxed text-sm">
+                <h3 className="text-xl font-black text-slate-800 mb-3 text-right">ביטחון בשיחת המכירה</h3>
+                <p className="text-slate-500 font-bold leading-relaxed text-sm text-right">
                   זכור להדגיש: אנחנו לא חברת אפליקציה רגילה, אנחנו yes. היציבות של השידור, השירות המהיר והמותג החזק נותנים ללקוח שקט נפשי.
                 </p>
               </div>
@@ -385,7 +386,7 @@ export default function App() {
 
             <div className="bg-white rounded-[3rem] border border-slate-200 shadow-sm overflow-hidden text-right">
               <div className="p-8 border-b border-slate-100 flex items-center justify-end gap-3 text-right">
-                <h2 className="text-xl font-black text-slate-800">מענה מקצועי להתנגדויות</h2>
+                <h2 className="text-xl font-black text-slate-800 text-right">מענה מקצועי להתנגדויות</h2>
                 <HelpCircle className="w-6 h-6 text-blue-500" />
               </div>
               <div className="divide-y divide-slate-50">
