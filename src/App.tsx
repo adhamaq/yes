@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { 
   CheckCircle2, XCircle, Tv, Clock, Search, ChevronDown, ChevronUp, 
   Film, Smile, Trophy, Globe, Calculator, Wallet, BarChart3, 
-  HelpCircle, ShieldCheck, Star, Users, AlertTriangle, Info, Wifi, Zap, ArrowRight, ExternalLink,
-  Video, MonitorPlay, Layout
+  HelpCircle, ShieldCheck, Star, Users, AlertTriangle, Info, Zap,
+  Video, MonitorPlay
 } from 'lucide-react';
 
 // --- נתוני מחירים רשמיים מעודכנים ---
@@ -233,7 +233,7 @@ export default function App() {
                 </div>
                 <div className="grid grid-cols-4 gap-2">
                   {['7','8','9','÷','4','5','6','x','1','2','3','-','C','0','=','+'].map(btn => (
-                    <button key={btn} onClick={() => handleCalcInput(btn)} className={`h-14 rounded-2xl font-bold text-lg transition-all active:scale-90 ${btn === '=' ? 'bg-blue-600 text-white shadow-lg' : btn === 'C' ? 'bg-red-500/20 text-red-400' : ['÷','x','-','+'].includes(btn) ? 'bg-white/10 text-blue-400 hover:bg-white/20' : 'bg-white/5 text-slate-300 hover:bg-white/10'}`}>
+                    <button key={btn} onClick={() => handleCalcInput(btn)} className="h-14 rounded-2xl font-bold text-lg transition-all active:scale-90 bg-white/5 text-slate-300 hover:bg-white/10">
                       {btn === 'x' ? '×' : btn === '÷' ? '÷' : btn}
                     </button>
                   ))}
@@ -275,7 +275,7 @@ export default function App() {
                     {DETAILED_CHANNELS.map((cat) => (
                       <React.Fragment key={cat.category}>
                         <tr className="bg-slate-50/30">
-                          <td colSpan="6" className="px-6 py-3">
+                          <td colSpan={6} className="px-6 py-3">
                             <div className="flex items-center gap-2">
                               <cat.icon className="w-3.5 h-3.5 text-slate-400" />
                               <span className="text-[11px] font-black text-slate-500 uppercase">{cat.category}</span>
@@ -386,7 +386,7 @@ export default function App() {
                       onClick={() => setOpenObjection(openObjection === i ? null : i)}
                       className="w-full flex items-center justify-between p-6 hover:bg-slate-50 transition-colors text-right"
                     >
-                      {openObjection === i ? <ChevronUp className="w-5 h-5 text-blue-500" /> : <ChevronDown className="w-5 h-5 text-slate-300" />}
+                      {openObjection === i ? <ChevronUp className="w-5 h-5 text-blue-600" /> : <ChevronDown className="w-5 h-5 text-slate-300" />}
                       <span className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{obj.q}</span>
                     </button>
                     {openObjection === i && (
