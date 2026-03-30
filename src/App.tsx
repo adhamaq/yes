@@ -76,6 +76,7 @@ export default function App() {
     if (val === '=') {
       try {
         const sanitized = equation.replace(/x/g, '*').replace(/÷/g, '/');
+        // @ts-ignore
         const result = new Function(`return ${sanitized}`)();
         setDisplay(String(result)); setEquation(String(result));
       } catch { setDisplay('Error'); }
