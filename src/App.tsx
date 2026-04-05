@@ -4,30 +4,8 @@ import {
   CheckCircle2, XCircle, Tv, Clock, Search, ChevronDown, ChevronUp, 
   Film, Smile, Trophy, Globe, Calculator, Wallet, BarChart3, 
   HelpCircle, ShieldCheck, Star, Users, AlertTriangle, Info, Zap,
-  Video, MonitorPlay, Compass, ExternalLink, Play, Music, Languages, Utensils, TrendingUp, Lightbulb, MessageCircle, Link as LinkIcon
+  Video, MonitorPlay, Compass, ExternalLink, Play, Music, Languages, Utensils, Lightbulb, MessageCircle, Link as LinkIcon
 } from 'lucide-react';
-
-// --- נתוני מחירים רשמיים מעודכנים ---
-const PRICES = {
-  base: [
-    { id: 'sting_tv', name: "STING+ TV", now: 49, after: 99.9, note: "אפליקציה (עד 5 מכשירים)", color: "emerald" },
-    { id: 'sting_fiber', name: "STING+ Fiber", now: 174, after: 234, note: "סיבים 1000Mb כולל נתב", color: "emerald" },
-    { id: 'yes_tv', name: "yes+ TV", now: 99, after: 199, note: "Ultimate (כולל ממיר yes+)", color: "blue" },
-    { id: 'yes_fiber', name: "yes+ Fiber", now: 199, after: 329, note: "טריפל סיבים חבילה מלאה", color: "blue" },
-  ],
-  streaming: [
-    { name: "דיסני+ (Disney)", price: 49.9, icon: <Film className="w-4 h-4 text-blue-400" /> },
-    { name: "נטפליקס Standard", price: 54.9, icon: <Video className="w-4 h-4 text-red-500" /> },
-    { name: "נטפליקס Premium (4K)", price: 69.9, icon: <Video className="w-4 h-4 text-red-600" /> },
-    { name: "Max Standard (HBO)", price: 40, icon: <Tv className="w-4 h-4 text-indigo-500" /> },
-    { name: "Max Premium (4K)", price: 59, icon: <Tv className="w-4 h-4 text-indigo-700" /> },
-  ],
-  premium: [
-    { name: "ספורט 1-4 (צ'רלטון)", price: 99.9, icon: <Trophy className="w-4 h-4 text-yellow-600" /> },
-    { name: "ספורט 5 פרימיום", price: 54, icon: <Trophy className="w-4 h-4 text-orange-500" /> },
-    { name: "חבילת ערוצי רוסית", price: 29.9, icon: <Globe className="w-4 h-4 text-blue-500" /> },
-  ]
-};
 
 // --- מסד נתונים מלא ומסונכרן ---
 const DETAILED_CHANNELS = [
@@ -212,16 +190,6 @@ const DETAILED_CHANNELS = [
   }
 ];
 
-const COMPARISON_DATA = [
-  { label: "מחיר התחלתי (מבצע)", yes: "₪99", sting: "₪49", hot: "₪199", cellcom: "₪99", partner: "₪69", nexttv: "₪39", freetv: "₪39.90" },
-  { label: "מחיר קבוע (לאחר מכן)", yes: "₪199", sting: "₪99.9", hot: "₪239", cellcom: "₪119", partner: "₪99", nexttv: "₪39", freetv: "₪39.90" },
-  { label: "עלות ממירים בבית", yes: "✅ הכל כלול", sting: "✅ חינם (App)", hot: "❌ ₪30 לממיר", cellcom: "❌ ₪29 לממיר", partner: "❌ ₪25 לממיר", nexttv: "📱 אפליקציה", freetv: "📱 אפליקציה" },
-  { label: "כמות מסכים במקביל", yes: "5", sting: "5", hot: "3", cellcom: "3", partner: "3", nexttv: "3", freetv: "2 (בסיס)" },
-  { label: "Catch Up (ימים)", yes: "7", sting: "7", hot: "חלקי", cellcom: "7", partner: "14", nexttv: "❌ אין", freetv: "7" },
-  { label: "דיליי בשידורי ספורט", yes: "✅ Low Latency", sting: "✅ Low Latency", hot: "✅ ללא דיליי", cellcom: "❌ דיליי", partner: "❌ דיליי", nexttv: "❌ דיליי", freetv: "❌ דיליי" },
-  { label: "הפקות מקור / VOD", yes: "⭐⭐⭐⭐⭐", sting: "⭐⭐⭐⭐", hot: "⭐⭐⭐⭐", cellcom: "⭐⭐", partner: "⭐ (דל)", nexttv: "⭐⭐⭐⭐", freetv: "⭐ (דל)" },
-];
-
 const OBJECTIONS = [
   { 
     q: `"יקר לי"`, 
@@ -269,7 +237,7 @@ const COMPANY_LINKS = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('links');
+  const [activeTab, setActiveTab] = useState('calculator'); // שיניתי את ברירת המחדל למחירון
   const [display, setDisplay] = useState('0');
   const [equation, setEquation] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -335,14 +303,12 @@ export default function App() {
         </div>
       </header>
 
-      {/* Navigation - Responsive Tabs (6 TABS) */}
-      <nav className="max-w-5xl mx-auto px-2 sm:px-6 mt-6 z-10 relative">
+      {/* Navigation - Responsive Tabs */}
+      <nav className="max-w-4xl mx-auto px-2 sm:px-6 mt-6 z-10 relative">
         <div className="bg-white/70 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200 shadow-sm flex gap-1 overflow-x-auto no-scrollbar">
           {[
             { id: 'calculator', icon: Calculator, label: 'מחירון' },
             { id: 'channels', icon: Tv, label: 'ערוצים' },
-            { id: 'comparison', icon: BarChart3, label: 'טבלה' },
-            { id: 'market', icon: TrendingUp, label: 'זירת התחרות' }, 
             { id: 'highlights', icon: ShieldCheck, label: 'התנגדויות' },
             { id: 'links', icon: LinkIcon, label: 'קישורים' }
           ].map(tab => (
@@ -364,113 +330,33 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-3 sm:px-6 mt-6 sm:mt-10 z-10 relative pb-20">
         
-        {/* TAB 1: Calculator & Pricing */}
+        {/* TAB 1: Calculator Only */}
         {activeTab === 'calculator' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Calculator Card */}
-            <div className="lg:col-span-4 lg:order-last">
-              <div className="bg-slate-900 p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl sticky top-24 border border-slate-800">
-                <div className="flex items-center gap-3 mb-4 sm:mb-6 justify-end">
-                  <span className="font-black text-slate-100 text-sm">מחשבון עזר מהיר</span>
-                  <Calculator className="w-5 h-5 text-blue-400" />
-                </div>
-                <div className="bg-black/40 p-4 sm:p-6 rounded-2xl sm:rounded-3xl mb-4 sm:mb-6 text-right font-mono border border-white/5 shadow-inner">
-                  <div className="text-[10px] text-slate-500 h-4 mb-1 italic overflow-hidden">{equation || 'הקלד לחישוב...'}</div>
-                  <div className="text-3xl sm:text-4xl font-bold text-white tracking-tighter truncate">{display}</div>
-                </div>
-                <div className="grid grid-cols-4 gap-2 sm:gap-3">
-                  {['7','8','9','÷','4','5','6','x','1','2','3','-','C','0','=','+'].map(btn => (
-                    <button 
-                      key={btn} 
-                      onClick={() => handleCalcInput(btn)} 
-                      className={`h-12 sm:h-14 rounded-xl sm:rounded-2xl font-black text-lg transition-all active:scale-90 ${
-                        btn === '=' ? 'bg-blue-600 text-white shadow-lg' : 
-                        btn === 'C' ? 'bg-red-500/20 text-red-400' :
-                        ['÷','x','-','+'].includes(btn) ? 'bg-white/10 text-blue-400' : 
-                        'bg-white/5 text-slate-300 hover:bg-white/10'
-                      }`}
-                    >
-                      {btn === 'x' ? '×' : btn === '÷' ? '÷' : btn}
-                    </button>
-                  ))}
-                </div>
+          <div className="max-w-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-slate-900 p-5 sm:p-6 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-slate-800">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6 justify-end">
+                <span className="font-black text-slate-100 text-sm">מחשבון עזר מהיר</span>
+                <Calculator className="w-5 h-5 text-blue-400" />
               </div>
-            </div>
-
-            {/* Pricing Section */}
-            <div className="lg:col-span-8 lg:order-first space-y-6 sm:y-8">
-              <section>
-                <div className="flex items-center gap-3 mb-4 sm:mb-6 justify-end text-right">
-                  <h2 className="text-lg font-black text-slate-800">חבילות בסיס וסיבים</h2>
-                  <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-100">
-                    <Wallet className="w-4 h-4 text-blue-600" />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {PRICES.base.map((p) => (
-                    <div key={p.id} className="group bg-white p-5 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-md transition-all text-right">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="text-right">
-                          <div className={`text-[9px] font-black px-2 py-0.5 rounded-full mb-2 inline-block ${p.color === 'emerald' ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-blue-600'}`}>
-                            {p.color === 'emerald' ? 'STING+' : 'yes+'}
-                          </div>
-                          <h3 className="text-base sm:text-lg font-black text-slate-800 leading-tight">{p.name}</h3>
-                          <p className="text-[10px] sm:text-[11px] font-bold text-slate-400 mt-1">{p.note}</p>
-                        </div>
-                        <div className="text-left shrink-0">
-                          <div className="text-xl sm:text-2xl font-black text-slate-900 leading-none">₪{p.now}</div>
-                          <div className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-tighter">לחודש</div>
-                        </div>
-                      </div>
-                      <div className="pt-4 border-t border-slate-50 flex items-center justify-between flex-row-reverse">
-                        <span className="text-[10px] sm:text-[11px] font-bold text-slate-500">בתום שנה</span>
-                        <div className="flex items-center gap-1 bg-red-50 px-2 py-0.5 rounded-lg border border-red-100">
-                          <span className="text-xs sm:text-sm font-black text-red-600">₪{p.after}</span>
-                          <AlertTriangle className="w-3 h-3 text-red-500" />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                <section className="bg-white p-5 sm:p-6 rounded-[2rem] border border-slate-200 shadow-sm">
-                  <h3 className="text-xs sm:text-sm font-black text-slate-400 mb-4 flex items-center justify-end gap-2 text-right">
-                     סטרימינג ו-VOD <MonitorPlay className="w-4 h-4" />
-                  </h3>
-                  <div className="space-y-2">
-                    {PRICES.streaming.map((s, i) => (
-                      <div key={i} className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-transparent hover:border-slate-200 text-right">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 bg-white rounded-lg border border-slate-100 flex items-center justify-center shadow-sm">
-                            {s.icon}
-                          </div>
-                          <span className="text-xs sm:text-sm font-bold text-slate-700">{s.name}</span>
-                        </div>
-                        <span className="text-xs sm:text-sm font-black text-blue-600">₪{s.price}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-                <section className="bg-white p-5 sm:p-6 rounded-[2rem] border border-slate-200 shadow-sm">
-                  <h3 className="text-xs sm:text-sm font-black text-slate-400 mb-4 flex items-center justify-end gap-2 text-right">
-                    ערוצי פרימיום <Trophy className="w-4 h-4" />
-                  </h3>
-                  <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
-                    {PRICES.premium.map((p, i) => (
-                      <div key={i} className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 text-right">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 bg-white rounded-lg border border-slate-100 flex items-center justify-center shadow-sm text-blue-600">
-                            {p.icon}
-                          </div>
-                          <span className="text-xs sm:text-sm font-bold text-slate-700">{p.name}</span>
-                        </div>
-                        <span className="text-xs sm:text-sm font-black text-blue-600">₪{p.price}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
+              <div className="bg-black/40 p-4 sm:p-6 rounded-2xl sm:rounded-3xl mb-4 sm:mb-6 text-right font-mono border border-white/5 shadow-inner">
+                <div className="text-[10px] text-slate-500 h-4 mb-1 italic overflow-hidden">{equation || 'הקלד לחישוב...'}</div>
+                <div className="text-3xl sm:text-4xl font-bold text-white tracking-tighter truncate">{display}</div>
+              </div>
+              <div className="grid grid-cols-4 gap-2 sm:gap-3">
+                {['7','8','9','÷','4','5','6','x','1','2','3','-','C','0','=','+'].map(btn => (
+                  <button 
+                    key={btn} 
+                    onClick={() => handleCalcInput(btn)} 
+                    className={`h-12 sm:h-14 rounded-xl sm:rounded-2xl font-black text-lg transition-all active:scale-90 ${
+                      btn === '=' ? 'bg-blue-600 text-white shadow-lg' : 
+                      btn === 'C' ? 'bg-red-500/20 text-red-400' :
+                      ['÷','x','-','+'].includes(btn) ? 'bg-white/10 text-blue-400' : 
+                      'bg-white/5 text-slate-300 hover:bg-white/10'
+                    }`}
+                  >
+                    {btn === 'x' ? '×' : btn === '÷' ? '÷' : btn}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -536,192 +422,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 3: Extended Company Comparison */}
-        {activeTab === 'comparison' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6 text-right">
-            <div className="flex items-center gap-3 mb-2 justify-end">
-              <h2 className="text-lg font-black text-slate-800 text-right underline decoration-blue-500 decoration-2 underline-offset-8">טבלת השוואת מתחרים מורחבת</h2>
-              <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-100 shadow-sm">
-                <BarChart3 className="w-4 h-4 text-blue-600" />
-              </div>
-            </div>
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden border-t-4 border-t-blue-600">
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[950px] border-collapse text-center">
-                  <thead>
-                    <tr className="bg-slate-50/80 border-b border-slate-100">
-                      <th className="p-4 text-right text-xs font-black text-slate-500 uppercase border-l border-slate-100">קריטריון</th>
-                      <th className="p-4 text-center text-xs font-black text-blue-700 bg-blue-50/60 shadow-inner">yes+</th>
-                      <th className="p-4 text-center text-xs font-black text-emerald-700 bg-emerald-50/60 shadow-inner">STING+</th>
-                      <th className="p-4 text-center text-xs font-black text-slate-600">HOT</th>
-                      <th className="p-4 text-center text-xs font-black text-slate-600">סלקום TV</th>
-                      <th className="p-4 text-center text-xs font-black text-slate-600">פרטנר TV</th>
-                      <th className="p-4 text-center text-xs font-black text-orange-600">NEXT TV</th>
-                      <th className="p-4 text-center text-xs font-black text-rose-600">FreeTV</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {COMPARISON_DATA.map((row, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50 transition-colors group">
-                        <td className="p-4 text-xs font-black text-slate-600 border-l border-slate-100 text-right whitespace-nowrap">{row.label}</td>
-                        <td className="p-4 text-center font-black text-blue-900 bg-blue-50/20 text-xs sm:text-sm group-hover:bg-blue-50/50 transition-colors">{row.yes}</td>
-                        <td className="p-4 text-center font-black text-emerald-900 bg-emerald-50/20 text-xs sm:text-sm group-hover:bg-emerald-50/50 transition-colors">{row.sting}</td>
-                        <td className="p-4 text-center font-bold text-slate-700 text-xs">{row.hot}</td>
-                        <td className="p-4 text-center font-bold text-slate-700 text-xs">{row.cellcom}</td>
-                        <td className="p-4 text-center font-bold text-slate-700 text-xs">{row.partner}</td>
-                        <td className="p-4 text-center font-bold text-orange-700 text-xs bg-orange-50/10">{row.nexttv}</td>
-                        <td className="p-4 text-center font-bold text-rose-700 text-xs bg-rose-50/10">{row.freetv}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            
-            <div className="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex gap-3 items-start flex-row-reverse shadow-sm">
-              <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-              <p className="text-xs sm:text-sm font-bold text-blue-900 leading-relaxed text-right">
-                <strong>שים לב במכירה:</strong> מתחרים (הוט/סלקום/פרטנר) מסתירים לרוב את דמי השכירות על הממירים הנוספים. לקוח עם 3 טלוויזיות ישלם להם תוספת של 50-60 ש"ח בכל חודש, בעוד שאצלנו ב-yes+ ו-STING+ מדובר בחיסכון ענק כי הכל כלול במחיר!
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 4: NEW - Market Presentation (זירת התחרות) */}
-        {activeTab === 'market' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8 text-right">
-            <div className="flex items-center gap-3 mb-2 justify-end">
-              <h2 className="text-xl font-black text-slate-800 text-right underline decoration-blue-500 decoration-2 underline-offset-8">תמונת מצב שוק הטלוויזיה</h2>
-              <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-100 shadow-sm">
-                <TrendingUp className="w-4 h-4 text-blue-600" />
-              </div>
-            </div>
-
-            {/* Players Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-slate-900 rounded-[2rem] p-6 text-white border border-slate-800 shadow-xl flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-4">
-                  <Star className="w-8 h-8 text-blue-400" />
-                </div>
-                <h3 className="text-lg font-black mb-2 text-blue-400">שחקני הפרימיום</h3>
-                <p className="text-sm text-slate-400 font-bold mb-4">yes+ ו-HOT</p>
-                <p className="text-xs text-slate-300">הצעות פרימיום מלאות, כולל ממירים מתקדמים, VOD עצום, הפקות מקור איכותיות וקהל נאמן שמעריך איכות צפייה ללא פשרות.</p>
-              </div>
-              <div className="bg-slate-800 rounded-[2rem] p-6 text-white border border-slate-700 shadow-xl flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-slate-500/20 rounded-full flex items-center justify-center mb-4">
-                  <Tv className="w-8 h-8 text-slate-300" />
-                </div>
-                <h3 className="text-lg font-black mb-2 text-slate-300">חברות הלואו-קוסט</h3>
-                <p className="text-sm text-slate-400 font-bold mb-4">סלקום TV ופרטנר TV</p>
-                <p className="text-xs text-slate-300">מחירי אמצע עם ספריית מקור חלשה. בדרך כלל מספקים רק ממיר אחד חינם וגובים תשלום על השאר. סובלים מדיליי בשידורים החיים.</p>
-              </div>
-              <div className="bg-slate-900 rounded-[2rem] p-6 text-white border border-emerald-900 shadow-xl flex flex-col items-center text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-2 h-full bg-emerald-500"></div>
-                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mb-4">
-                  <MonitorPlay className="w-8 h-8 text-emerald-400" />
-                </div>
-                <h3 className="text-lg font-black mb-2 text-emerald-400">אפליקציות סטרימינג</h3>
-                <p className="text-sm text-slate-400 font-bold mb-4">STING+ ו-FreeTV</p>
-                <p className="text-xs text-slate-300">שירות ללא ממירים פיזיים, מוזל וגמיש. STING+ מחזיקה ביתרון עצום בזכות ספריית המקור של yes והשידור ללא דיליי.</p>
-              </div>
-            </div>
-
-            {/* Price Chart */}
-            <div className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-sm border border-slate-200">
-              <h3 className="text-lg font-black text-slate-800 mb-6 border-b border-slate-100 pb-4">השוואת מחירי טלוויזיה לטווח ארוך (חודש 13 ואילך)</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-500 text-left">HOT</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-red-500 h-full flex items-center px-3" style={{width: '100%'}}>
-                      <span className="text-white text-xs font-black">₪219</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-800 text-left">yes+ Ultimate</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-blue-600 h-full flex items-center px-3" style={{width: '90%'}}>
-                      <span className="text-white text-xs font-black">₪199</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-500 text-left">סלקום TV</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-purple-500 h-full flex items-center px-3" style={{width: '55%'}}>
-                      <span className="text-white text-xs font-black">₪119</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-800 text-left">STING+</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-emerald-500 h-full flex items-center px-3" style={{width: '45%'}}>
-                      <span className="text-white text-xs font-black">₪99.9</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-500 text-left">פרטנר TV</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-teal-500 h-full flex items-center px-3" style={{width: '45%'}}>
-                      <span className="text-white text-xs font-black">₪99</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-500 text-left">NEXT TV</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-orange-400 h-full flex items-center px-3" style={{width: '20%'}}>
-                      <span className="text-white text-xs font-black">₪39</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-24 shrink-0 text-xs font-bold text-slate-500 text-left">FreeTV</span>
-                  <div className="flex-1 bg-slate-100 rounded-full h-8 overflow-hidden flex flex-row-reverse">
-                    <div className="bg-rose-400 h-full flex items-center px-3" style={{width: '20%'}}>
-                      <span className="text-white text-xs font-black">₪39.90</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-[11px] text-slate-400 mt-6 font-bold bg-slate-50 p-3 rounded-xl border border-slate-100">
-                <Info className="w-3.5 h-3.5 inline-block ml-1" />
-                המחיר אינו חזות הכל: חבילות זולות (כמו FreeTV) חסרות תוכן מקור ותמיכה בממירים, בעוד שמחירי הפרימיום משקפים חווית משתמש מתקדמת, תוכן עשיר ופתרון מלא לכל טלוויזיה בבית ללא דמי שכירות חודשיים.
-              </p>
-            </div>
-
-            {/* Double cards: Hidden costs vs Low Latency */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-blue-50 border border-blue-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-center">
-                <h3 className="text-lg font-black text-blue-900 mb-3 flex items-center gap-2 flex-row-reverse justify-end">
-                  <Wallet className="w-5 h-5" /> מלכודת הממירים
-                </h3>
-                <p className="text-sm font-bold text-blue-800 leading-relaxed">
-                  החיסכון הנסתר שלנו: בישראל יש בממוצע 3 טלוויזיות בבית. מתחרים (כמו HOT, סלקום ופרטנר) גובים 25-30 ש"ח לחודש על כל ממיר נוסף. 
-                  <br/><br/>
-                  ב-yes+ ו-STING+, <strong>כל המסכים כלולים במחיר!</strong> הלקוח חוסך כ-60-90 ש"ח בחודש (מעל 1000 ש"ח בשנה) רק על ציוד.
-                </p>
-              </div>
-
-              <div className="bg-emerald-50 border border-emerald-100 rounded-[2rem] p-6 shadow-sm flex flex-col justify-center">
-                <h3 className="text-lg font-black text-emerald-900 mb-3 flex items-center gap-2 flex-row-reverse justify-end">
-                  <Trophy className="w-5 h-5" /> Low Latency (בלי דיליי)
-                </h3>
-                <p className="text-sm font-bold text-emerald-800 leading-relaxed">
-                  שירותי הסטרימינג המתחרים סובלים מדיליי חמור בשידורי ספורט וחדשות. 
-                  <br/><br/>
-                  התשתית של yes ו-STING+ מבוססת על טכנולוגיית Low Latency שמבטיחה שידור חי אמיתי. הלקוחות שלנו שומעים "גול" לפני כולם, ללא קטיעות וללא פשרות בחוויה.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        )}
-
-        {/* TAB 5: Highlights & Objections */}
+        {/* TAB 3: Highlights & Objections */}
         {activeTab === 'highlights' && (
           <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 text-right">
             
@@ -788,7 +489,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 6: NEW - Links (קישורים) */}
+        {/* TAB 4: Links (קישורים) */}
         {activeTab === 'links' && (
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 text-right">
              <div className="flex items-center gap-3 mb-4 justify-end">
