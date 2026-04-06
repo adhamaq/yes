@@ -7,185 +7,187 @@ import {
   Video, MonitorPlay, Compass, ExternalLink, Play, Music, Languages, Utensils, Lightbulb, MessageCircle, Link as LinkIcon
 } from 'lucide-react';
 
-// --- מסד נתונים מלא ומסונכרן ---
+// --- מסד נתונים מדויק מבוסס תמונות השוואה ---
 const DETAILED_CHANNELS = [
   {
-    category: 'ברודקאסט וחדשות ישראל',
+    category: 'ברודקאסט וחדשות',
     icon: Tv,
     channels: [
-      { name: 'כאן 11', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'קשת 12', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'רשת 13', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'עכשיו 14', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ 9', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ערוץ 24', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ הכנסת', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'i24 News עברית', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'i24 News English', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'i24 News Arabic', yes: true, sting: true, hot: true, cellcom: true, partner: false, freetv: true },
-      { name: 'מכאן 33', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'הלא TV', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ 98', yes: true, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
+      { name: 'קשת 12', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'רשת 13', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'עכשיו 14', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'כאן 11', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'ערוץ 9', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ 24', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: true },
+      { name: 'ערוץ הכנסת', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'i24 באנגלית', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
+      { name: 'i24 בצרפתית', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'i24 Arabic', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ מכאן 33', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'הלא TV', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ 98', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
     ]
   },
   {
     category: 'לייף סטייל, אוכל ופנאי',
     icon: Utensils,
     channels: [
-      { name: 'החיים הטובים', yes: true, sting: true, hot: true, cellcom: true, partner: false, freetv: true },
-      { name: 'ערוץ האוכל', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'פודי (FOODY)', yes: true, sting: true, hot: false, cellcom: true, partner: true, freetv: false },
-      { name: 'ערוץ הטיולים', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'בית פלוס', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ערוץ DIY', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ הבריאות', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'Fashion TV HD', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ערוץ אופנה ישראלי', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ערוץ אגו', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'אגו טוטאל', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ערוץ הקראוון', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'CBS Reality', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
+      { name: 'החיים הטובים', hot: true, sting: false, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ האוכל', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'פודי (FOODY)', hot: true, sting: false, yes: false, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ הטיולים', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'בית +', hot: true, sting: false, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ DIY', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'ערוץ הבריאות', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'FTV HD', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: false, freetv: false },
+      { name: 'ערוץ אופנה ישראלי', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ אגו', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'אגו טוטאל', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'CBS Reality', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
+      { name: 'TLC', hot: false, sting: false, yes: true, nexttv: false, cellcom: true, partner: false, freetv: false },
     ]
   },
   {
-    category: 'ערוצי ספורט',
+    category: 'ספורט',
     icon: Trophy,
     channels: [
-      { name: 'ספורט 5', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: '5 פלוס', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: '5 לייב', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: '5 גולד', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: '5 4K', yes: true, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ספורט 1 (צ\'רלטון)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ספורט 2', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ספורט 3', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ספורט 4', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ONE', yes: true, sting: true, hot: true, cellcom: true, partner: false, freetv: true },
-      { name: 'ONE 2', yes: true, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ONE 4K', yes: true, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'יורוספורט 1', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'יורוספורט 2', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'Trace Sport Stars', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Edge Sport', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ המנוע', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
+      { name: '5SPORT', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'PLUS 5 ספורט', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: '5LIVE', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: '5GOLD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: '5SPORT4K', hot: false, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'ספורט 1 HD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ספורט 2 HD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ספורט 3', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ספורט 4 HD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ONE ערוץ', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'one 2', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'ONE DOCO', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'Eurosport 2 ערוץ', hot: true, sting: false, yes: true, nexttv: true, cellcom: true, partner: false, freetv: false },
+      { name: 'EDGE SPORT', hot: true, sting: false, yes: true, nexttv: true, cellcom: true, partner: false, freetv: false },
+      { name: 'Trace ספורט', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'EXTREME SPORT', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
     ]
   },
   {
-    category: 'סרטים (yes Movies vs HOT Cinema)',
+    category: 'סרטים (HOT Cinema / yes Movies)',
     icon: MonitorPlay,
     channels: [
-      { name: 'yes Movies Drama', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'yes Movies Action', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'yes Movies Comedy', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'yes Movies Israeli', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'yes Movies Kids', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'HOT Cinema 1-4', yes: false, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'Cinema Boutique', yes: false, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ערוץ הקולנוע הישראלי', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'TCM / MGM', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
+      { name: 'yes Movies Drama', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'yes Movies Action', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'yes MOVIES COMEDY', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'yes Movies Kids', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ yes ישראלי', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT cinema 1 HD', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT cinema 2 HD', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT cinema 3 HD', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT cinema 4 HD', hot: true, sting: false, yes: false, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT קולנוע ישראלי', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ הקומדיות הקלאסיות', hot: true, sting: false, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
     ]
   },
   {
     category: 'סדרות ובידור',
     icon: Play,
     channels: [
-      { name: 'yes TV Drama', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'yes TV Action', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'yes TV Comedy', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'HOT 3', yes: false, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'ויוה', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ויוה פלוס', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ויוה פרימיום', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ערוץ הדרמות הטורקיות', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'הדרמות הטורקיות +', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ערוץ הדרמות הטורקיות 2', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'ערוץ הים תיכוני', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ הריאליטי', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ השעשועונים', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Bollywood', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'E! Entertainment', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
+      { name: 'yes TV Drama', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
+      { name: 'yes TV Action', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'yes TV Comedy', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT 3', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'ויוה טלנובלות', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ויוה+', hot: false, sting: false, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ויוה פרימיום', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
+      { name: 'ויוה וינטג\'', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ הדרמות הטורקיות+', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ הדרמות הטורקיות 2', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ הדרמות הטורקיות 3', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'הים תיכוני +', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: true },
+      { name: 'ערוץ הריאליטי', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'ערוץ השעשועונים', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'Bollyshow / Bollywood HD', hot: true, sting: false, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'E ערוץ', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ ההומור', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
     ]
   },
   {
     category: 'ילדים ונוער',
     icon: Smile,
     channels: [
-      { name: 'הופ!', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ הילדים', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'לוגי', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ניקלודיאון', yes: true, sting: true, hot: true, cellcom: false, partner: true, freetv: false },
-      { name: 'Nick Jr.', yes: true, sting: true, hot: true, cellcom: false, partner: true, freetv: false },
-      { name: 'TeenNick', yes: true, sting: true, hot: true, cellcom: false, partner: true, freetv: false },
-      { name: 'ג\'וניור', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'זום (ZOOM)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'דיסני', yes: true, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'דיסני Jr.', yes: true, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'בייבי (BabyTV)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'לולי', yes: false, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'יו-יו', yes: true, sting: true, hot: false, cellcom: true, partner: false, freetv: false },
-      { name: 'ילדותי', yes: true, sting: true, hot: false, cellcom: true, partner: false, freetv: false },
-      { name: 'JimJam', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'קידז (KIDZ)', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
+      { name: 'הופ !', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: true },
+      { name: 'ערוץ הילדים', hot: false, sting: false, yes: false, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'לוגי', hot: true, sting: false, yes: false, nexttv: false, cellcom: true, partner: false, freetv: false },
+      { name: 'ניקלודיאון', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ניק ג\'וניור', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'Teennick', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ג\'וניור', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'זום', hot: true, sting: false, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'ערוץ דיסני', hot: true, sting: false, yes: true, nexttv: false, cellcom: true, partner: false, freetv: false },
+      { name: 'ערוץ דיסני ג\'וניור', hot: true, sting: false, yes: true, nexttv: false, cellcom: true, partner: false, freetv: false },
+      { name: 'בייבי', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'HOT לולי', hot: true, sting: false, yes: false, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ YOYO', hot: true, sting: false, yes: true, nexttv: false, cellcom: true, partner: false, freetv: false },
+      { name: 'ילדותי', hot: false, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'ג\'ים ג\'אם', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'ZOOM TOON', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: true, freetv: false },
+      { name: 'Cartoon Networks', hot: false, sting: true, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ הכוכבים', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
     ]
   },
   {
     category: 'דוקו, טבע ומדע',
     icon: Compass,
     channels: [
-      { name: 'yes דוקו', yes: true, sting: true, hot: false, cellcom: false, partner: false, freetv: false },
-      { name: 'HOT 8', yes: false, sting: false, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'National Geographic', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Nat Geo Wild', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Discovery', yes: true, sting: true, hot: true, cellcom: false, partner: true, freetv: true },
-      { name: 'Investigation Discovery (ID)', yes: true, sting: true, hot: true, cellcom: false, partner: true, freetv: true },
-      { name: 'Animal Planet', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'History Channel', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'ערוץ המדע (Science)', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
+      { name: 'yes דוקו', hot: false, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'HOT8', hot: true, sting: false, yes: false, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ נשיונל גיאוגרפיק HD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'נשיונל ווילד', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: '+Discovery / Discovery HD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: false, freetv: false },
+      { name: 'Investigation Discovery', hot: false, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'animal planet', hot: false, sting: true, yes: true, nexttv: false, cellcom: true, partner: false, freetv: false },
+      { name: 'היסטוריה HD', hot: true, sting: true, yes: true, nexttv: true, cellcom: true, partner: true, freetv: false },
+      { name: 'ערוץ הנופש', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
     ]
   },
   {
     category: 'בינלאומי וחדשות עולם',
     icon: Languages,
     channels: [
-      { name: 'RTL (גרמניה)', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'RAI Uno (איטליה)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'TV5 Monde (צרפת)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'TVE (ספרד)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'DW (גרמניה/אנגלית)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'France 24', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'CNN International', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Fox News', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'BBC World News', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Sky News', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Bloomberg', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Al Jazeera (ENG)', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
+      { name: 'FRANCE 24 (אנגלית)', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'FRANCE 24 (צרפתית)', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
+      { name: 'CNN', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: true, freetv: false },
+      { name: 'FOX News', hot: true, sting: false, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'DW NEWS', hot: true, sting: false, yes: false, nexttv: true, cellcom: true, partner: false, freetv: false },
+      { name: 'SKY NEWS', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'בלומברג', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'euronews', hot: true, sting: false, yes: false, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'RTL', hot: false, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
     ]
   },
   {
     category: 'חבילת ערוצי רוסית',
     icon: Globe,
     channels: [
-      { name: 'Rossiya-24', yes: false, sting: false, hot: false, cellcom: false, partner: true, freetv: false },
-      { name: 'MOSFILM', yes: false, sting: false, hot: true, cellcom: false, partner: false, freetv: true },
-      { name: 'REN TV', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: false },
-      { name: 'SHANSON TV', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: true },
-      { name: 'Channel One Russia', yes: false, sting: false, hot: true, cellcom: false, partner: true, freetv: false },
-      { name: 'DOM KINO', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'RTR Planeta', yes: true, sting: false, hot: true, cellcom: true, partner: true, freetv: false },
-      { name: 'NTV MIR', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: true },
-      { name: 'Carousel', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: false },
+      { name: 'Rossiya-24', hot: false, sting: false, yes: false, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'MOSFILM', hot: true, sting: false, yes: false, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'REN TV', hot: true, sting: true, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'SHANSON TV', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'Carousel International', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'DOM KINO', hot: true, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'Music Box Russia', hot: false, sting: true, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
+      { name: 'NTV MIR', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'RTR PLANETA', hot: true, sting: false, yes: true, nexttv: false, cellcom: true, partner: true, freetv: false },
     ]
   },
   {
     category: 'מוזיקה',
     icon: Music,
     channels: [
-      { name: 'MTV Israel', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'MTV Live HD', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: true },
-      { name: 'MTV Hits', yes: true, sting: true, hot: true, cellcom: false, partner: false, freetv: true },
-      { name: 'Mezzo', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'Mezzo Live HD', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
-      { name: 'VH1 Classics', yes: true, sting: true, hot: true, cellcom: true, partner: true, freetv: true },
+      { name: 'MTV', hot: false, sting: false, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'MTV LIVE HD ערוץ', hot: false, sting: false, yes: false, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'MTV HITS', hot: true, sting: true, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'MEZZO', hot: true, sting: false, yes: true, nexttv: false, cellcom: false, partner: false, freetv: false },
+      { name: 'MTV 90\'S', hot: true, sting: false, yes: false, nexttv: true, cellcom: false, partner: false, freetv: false },
+      { name: 'ערוץ MTV S\'00', hot: true, sting: false, yes: true, nexttv: true, cellcom: false, partner: false, freetv: false },
     ]
   }
 ];
@@ -237,7 +239,7 @@ const COMPANY_LINKS = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('calculator'); // שיניתי את ברירת המחדל למחירון
+  const [activeTab, setActiveTab] = useState('calculator');
   const [display, setDisplay] = useState('0');
   const [equation, setEquation] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -379,13 +381,14 @@ export default function App() {
             </div>
             <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden text-right">
               <div className="overflow-x-auto scroll-smooth">
-                <table className="w-full min-w-[850px] border-collapse text-center">
+                <table className="w-full min-w-[900px] border-collapse text-center">
                   <thead>
                     <tr className="bg-slate-50 border-b border-slate-100">
                       <th className="p-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest border-l border-slate-100 w-[200px]">שם הערוץ</th>
                       <th className="p-4 text-center text-[10px] font-black text-blue-600 bg-blue-50/20">yes+</th>
                       <th className="p-4 text-center text-[10px] font-black text-emerald-600 bg-emerald-50/20">STING+</th>
                       <th className="p-4 text-center text-[10px] font-black text-red-600">HOT</th>
+                      <th className="p-4 text-center text-[10px] font-black text-orange-600">NEXT TV</th>
                       <th className="p-4 text-center text-[10px] font-black text-purple-600">סלקום</th>
                       <th className="p-4 text-center text-[10px] font-black text-teal-600">פרטנר</th>
                       <th className="p-4 text-center text-[10px] font-black text-rose-500">FreeTV</th>
@@ -395,7 +398,7 @@ export default function App() {
                     {DETAILED_CHANNELS.map((cat) => (
                       <React.Fragment key={cat.category}>
                         <tr className="bg-slate-100/50">
-                          <td colSpan={7} className="px-4 py-3 text-right">
+                          <td colSpan={8} className="px-4 py-3 text-right">
                             <div className="flex items-center justify-end gap-2">
                               <span className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">{cat.category}</span>
                               <cat.icon className="w-3.5 h-3.5 text-slate-400" />
@@ -408,6 +411,7 @@ export default function App() {
                             <td className="p-3 bg-blue-50/5">{renderIcon(ch.yes)}</td>
                             <td className="p-3 bg-emerald-50/5">{renderIcon(ch.sting)}</td>
                             <td className="p-3 opacity-60">{renderIcon(ch.hot)}</td>
+                            <td className="p-3 opacity-60">{renderIcon(ch.nexttv)}</td>
                             <td className="p-3 opacity-60">{renderIcon(ch.cellcom)}</td>
                             <td className="p-3 opacity-60">{renderIcon(ch.partner)}</td>
                             <td className="p-3 opacity-60 bg-rose-50/5">{renderIcon(ch.freetv)}</td>
